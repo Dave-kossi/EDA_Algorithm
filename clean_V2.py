@@ -1,0 +1,42 @@
+import pandas as pd
+from ydata_profiling import ProfileReport
+import os
+
+def charger_donnees(fichier: str) -> pd.DataFrame:
+    extension = os.path.splitext(fichier)[-1].lower()
+
+    if extension == ".csv":
+        return pd.read_csv(fichier)
+    elif extension in [".xls", ".xlsx"]:
+        return pd.read_excel(fichier)
+    elif extension == ".json":
+        return pd.read_json(fichier)
+    elif extension == ".parquet":
+        return pd.read_parquet(fichier)
+    elif extension == ".txt":
+        return pd.read_csv(fichier, delimiter="\t")
+    else:
+        raise ValueError(f"Extension de fichier non supportée : {extension}")
+
+def main():
+    # Demande à l’utilisateur de donner le chemin
+    fichier = input("👉 Entrez le chemin de votre fichier (CSV, Excel, JSON, Parquet) : ").strip()
+    sortie = input("👉 Nom du rapport de sortie (ex: rapport.html) [Entrée = rapport_analyse.html] : ").strip() or "rapport_analyse.html"
+
+    try:
+        if not os.path.exists(fichier):
+            raise FileNotFoundError(f"Le fichier {fichier} n'existe pas.")
+
+        df = charger_donnees(fichier)
+        print(f"✅ Dataset chargé : {df.shape[0]} lignes, {df.shape[1]} colonnes")
+
+        profile = ProfileReport(df, title="Profiling Report", explorative=True, minimal=False)
+        profile.to_file(sortie)
+
+        print(f"📊 Rapport généré : ouvre '{sortie}' dans ton navigateur.")
+
+    except Exception as e:
+        print(f"❌ Erreur : {e}")
+
+if __name__ == "__main__":
+    main()
