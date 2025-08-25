@@ -20,7 +20,7 @@ Le script est **convivial pour les débutants** et permet de charger des fichier
 
 ### 1. Cloner le dépôt
 ```bash
-git clone https://github.com/<ton-utilisateur>/<nom-du-repo>.git
+git clone https://github.com/Dave-kossi/EDA_Alorithm.git
 cd <nom-du-repo>
 ```
 
