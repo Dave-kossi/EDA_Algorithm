@@ -1,7 +1,7 @@
 import pandas as pd
 from ydata_profiling import ProfileReport
 import os
-
+# Control and dataset loading
 def charger_donnees(fichier: str) -> pd.DataFrame:
     extension = os.path.splitext(fichier)[-1].lower()
 
