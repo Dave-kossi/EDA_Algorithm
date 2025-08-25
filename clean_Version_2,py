@@ -17,7 +17,7 @@ def charger_donnees(fichier: str) -> pd.DataFrame:
         return pd.read_csv(fichier, delimiter="\t")
     else:
         raise ValueError(f"Extension de fichier non supportée : {extension}")
-
+# The main programm
 def main():
     # Demande à l’utilisateur de donner le chemin
     fichier = input("👉 Entrez le chemin de votre fichier (CSV, Excel, JSON, Parquet) : ").strip()
